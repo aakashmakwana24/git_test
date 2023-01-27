@@ -25,14 +25,12 @@ public class SacumenController {
 
 	@GetMapping("/get-all-jobs")
 	public List<SacumenJenkinsData> getAllJobs() {
-		log.info("request intercepted by controller");
+		log.info("Request intercepted by controller");
 		try {
 			return sacumenServices.getAlljobs();
 		} catch (URISyntaxException e) {
-
 			e.printStackTrace();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 		return null;

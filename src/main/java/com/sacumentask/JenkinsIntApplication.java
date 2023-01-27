@@ -8,6 +8,5 @@ public class JenkinsIntApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JenkinsIntApplication.class, args);
-
 	}
 }
