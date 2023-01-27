@@ -30,7 +30,6 @@
 			<artifactId>jenkins-client</artifactId>
 			<version>0.3.8</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
