@@ -38,6 +38,9 @@ public class SacumenServices {
 		log.info("collecting the job list");
 		log.info(String.format("Listdata = " + listdata));
 		return listdata;
+		
+		
+		
 	}
 
 }
