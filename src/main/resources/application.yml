@@ -1,0 +1,10 @@
+server:
+  port: 9000
+
+jenkins:
+  username: admin
+  password: admin
+  url: http://localhost:8080
+  
+project:
+  version: 1.0  
