@@ -23,7 +23,7 @@ public class SacumenServices {
 	private final JenkinsServer jenkins;
 
 	public List<SacumenJenkinsData> getAlljobs() throws URISyntaxException, IOException {
-		log.info("request invoked service method of-->getalljobs");
+
 		Map<String, Job> jobs = jenkins.getJobs();
 
 		List<SacumenJenkinsData> listdata = jobs.values().stream().map(x -> {
