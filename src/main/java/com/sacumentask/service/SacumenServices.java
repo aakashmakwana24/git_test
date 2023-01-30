@@ -1,16 +1,12 @@
 package com.sacumentask.service;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.offbytwo.jenkins.JenkinsServer;
-import com.offbytwo.jenkins.model.Job;
-import com.sacumentask.entities.SacumenJenkinsData;
+import com.sacumentask.entities.JenkinsResponse;
+import com.sacumentask.externalservice.JenkinsServiceUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,25 +16,30 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class SacumenServices {
 
-	private final JenkinsServer jenkins;
+	private ModelMapper modelMapper;
 
-	public List<SacumenJenkinsData> getAlljobs() throws URISyntaxException, IOException {
+	private JenkinsServiceUtil jenkinsServiceUtil;
 
-		Map<String, Job> jobs = jenkins.getJobs();
+	public JenkinsResponse getAlljobs() {
 
-		List<SacumenJenkinsData> listdata = jobs.values().stream().map(x -> {
-			SacumenJenkinsData jenkinsData = SacumenJenkinsData.builder().jenkinsJobName(x.getName()).build();
-			try {
-				jenkinsData.setJenkinsJobStatus(x.details().getLastBuild().details().getResult().toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return jenkinsData;
-		}).collect(Collectors.toList());
-		log.info("collecting the job list");
-		log.info(String.format("Listdata = " + listdata));
-		return listdata;
+		JenkinsResponse jenkinsResponse = modelMapper.map(jenkinsServiceUtil.getAllJobs().getBody(),
+				JenkinsResponse.class);
 
+		jenkinsResponse.setJobs(jenkinsResponse.getJobs().parallelStream().map(job -> {
+
+			var status = switch (job.getColor()) {
+			case "blue" -> "Success";
+			case "red" -> "Failed";
+			case "notbuilt" -> "Not Built";
+			default -> throw new IllegalArgumentException("Unexpected value: " + job.getColor());
+			};
+
+			job.setStatus(status);
+
+			return job;
+		}).collect(Collectors.toList()));
+
+		return jenkinsResponse;
 	}
 
 }

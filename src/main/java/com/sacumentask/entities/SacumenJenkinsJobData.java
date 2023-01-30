@@ -1,5 +1,6 @@
 package com.sacumentask.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -11,12 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SacumenJenkinsData {
+public class SacumenJenkinsJobData {
+	@JsonProperty("job_name")
+	private String name;
 
-	@JsonProperty("jenkins_job_name")
-	private String jenkinsJobName;
+	@JsonIgnore
+	private String color;
 
-	@JsonProperty("jenkins_job_status")
-	private String jenkinsJobStatus;
+	@JsonProperty("job_status")
+	private String status;
 
 }
