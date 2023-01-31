@@ -24,7 +24,7 @@ public class SacumenServices {
 
 		JenkinsResponse jenkinsResponse = modelMapper.map(jenkinsServiceUtil.getAllJobs().getBody(),
 				JenkinsResponse.class);
-
+		log.info("Request hitting the service layer");
 		jenkinsResponse.setJobs(jenkinsResponse.getJobs().parallelStream().map(job -> {
 
 			var status = switch (job.getColor()) {
@@ -38,8 +38,9 @@ public class SacumenServices {
 
 			return job;
 		}).collect(Collectors.toList()));
-
+		log.info(String.format("" + jenkinsResponse.getJobs()));
 		return jenkinsResponse;
+
 	}
 
 }
