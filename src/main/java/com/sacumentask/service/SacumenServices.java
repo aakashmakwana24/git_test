@@ -38,7 +38,7 @@ public class SacumenServices {
 
 			return job;
 		}).collect(Collectors.toList()));
-		log.info(String.format("" + jenkinsResponse.getJobs()));
+		log.info(String.format("Returning the response" + jenkinsResponse.getJobs()));
 		return jenkinsResponse;
 
 	}
