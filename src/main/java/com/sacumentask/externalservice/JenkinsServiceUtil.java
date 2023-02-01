@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "Jenkins-service", url = "http://localhost:8080/api/json", configuration = JenkinsServerConfig.class)
+@FeignClient(name = "Jenkins-service", url = "http://localhost:8080/api/json?tree=jobs[name,url,buildable]", configuration = JenkinsServerConfig.class)
 
 public interface JenkinsServiceUtil {
 

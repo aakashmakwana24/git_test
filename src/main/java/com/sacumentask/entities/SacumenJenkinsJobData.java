@@ -1,5 +1,7 @@
 package com.sacumentask.entities;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,5 +23,8 @@ public class SacumenJenkinsJobData {
 
 	@JsonProperty("job_status")
 	private String status;
+
+	@JsonProperty("job_buildable")
+	private boolean buildable;
 
 }
