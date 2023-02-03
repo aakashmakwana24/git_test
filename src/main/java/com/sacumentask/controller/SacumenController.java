@@ -1,10 +1,11 @@
 package com.sacumentask.controller;
 
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sacumentask.entities.JenkinsResponse;
 import com.sacumentask.service.SacumenServices;
 
 import lombok.AllArgsConstructor;
@@ -19,9 +20,9 @@ public class SacumenController {
 	private SacumenServices sacumenServices;
 
 	@GetMapping("/get-all-jobs")
-	public JenkinsResponse getAllJobs() {
+	public Optional<?> getAllJobs() {
 		log.info("Request intercepted by the controller");
-		JenkinsResponse jenkinsResponse = sacumenServices.getAlljobs();
-		return jenkinsResponse;
+
+		return Optional.ofNullable(sacumenServices.getAlljobs());
 	}
 }

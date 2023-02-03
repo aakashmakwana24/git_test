@@ -21,7 +21,7 @@ public class SacumenServices {
 
 	private JenkinsServiceUtil jenkinsServiceUtil;
 
-	public JenkinsResponse getAlljobs() {
+	public Optional<?> getAlljobs() {
 
 		JenkinsResponse jenkinsResponse = modelMapper.map(jenkinsServiceUtil.getAllJobs().getBody(),
 				JenkinsResponse.class);
@@ -45,15 +45,19 @@ public class SacumenServices {
 
 				} else if (var.get().equalsIgnoreCase("blue")) {
 					job.setStatus("success");
+				} else if (var.get().equalsIgnoreCase("notbuilt")) {
+					job.setStatus("notbuilt");
 				}
 			} else {
-				job.setStatus("null");
+				job.setStatus("Null");
 				log.info("setting the status null");
 			}
+
 			return job;
 		}).collect(Collectors.toList()));
 		log.info(String.format("Returning the response: " + jenkinsResponse.getJobs()));
-		return jenkinsResponse;
+
+		return Optional.ofNullable(jenkinsResponse.getJobs());
 
 	}
 
